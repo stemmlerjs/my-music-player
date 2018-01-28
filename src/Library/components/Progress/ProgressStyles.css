@@ -1,0 +1,16 @@
+
+.progressContainer {
+display: flex;
+    margin-top: 10px;
+}
+
+.progressElapsed {
+    background: darkgrey;
+    height: 10px;
+}
+
+.progressLeft {
+    background: white;
+    height: 8px;
+    border: solid 1px darkgrey;
+}
