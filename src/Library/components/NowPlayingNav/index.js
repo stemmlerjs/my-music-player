@@ -10,8 +10,7 @@ import Progress from '../Progress'
 import { container, topSectionContainer, npImg, npDetailsContainer, npTitle, npArtist, npAlbum, npControllerContainer,
 controlButtons, controlButton, npImgContainer, npImgAlt } from './NowPlayingNavStyles.css'
 
-const NowPlayingNav = ({ handlePause, handleResume, handleRestart, handleNext, isPlaying, currentTrack, currentArtwork }) => {
-  console.log(currentArtwork, "current artwork")
+const NowPlayingNav = ({ handlePause, handleResume, handleRestart, handleNext, isPlaying, currentTrack, currentArtwork, currentTime, duration }) => {
   return (
     <div className={container}>
       <div className={topSectionContainer}>
@@ -43,7 +42,7 @@ const NowPlayingNav = ({ handlePause, handleResume, handleRestart, handleNext, i
           </div>
         </div>
       </div>
-      <Progress percent={0.3}/>
+      <Progress percent={currentTime == -1 ? 0 : currentTime / duration}/>
     </div>
   )
 }

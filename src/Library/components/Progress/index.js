@@ -7,11 +7,14 @@ function getPercentPixels (p, e) {
   else return String(((1 - p).toFixed(2)*100)) + "%";
 }
 
-const Progress = ({percent}) => (
-  <div className={progressContainer}>
-    <div className={progressElapsed} style={{width: getPercentPixels(percent, 0)}}></div>
-    <div className={progressLeft} style={{width: getPercentPixels(percent, 1)}}></div>
-  </div>
-)
+const Progress = ({percent}) => {
+  return (
+    <div className={progressContainer}>
+      <div className={progressElapsed} style={{width: getPercentPixels(percent, 0)}}></div>
+      <div className={progressLeft} style={{width: getPercentPixels(percent, 1)}}></div>
+    </div>
+  )
+  
+}
 
 export default Progress;

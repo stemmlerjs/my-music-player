@@ -16,9 +16,12 @@ export default class LibraryComponent extends Component {
       player: {
         isPlaying: false,
         track: null,
-        currentTrackIndex: -1
+        currentTrackIndex: -1,
+        currentTime: -1,
+        duration: -1
       }
     };
+    
   }
   
   componentWillMount() {
@@ -124,6 +127,8 @@ export default class LibraryComponent extends Component {
 
         this.setState({ player: { isPlaying: true, track: track, trackIndex: trackIndex }})
 
+        this.getTimes();
+
       })
   }
   
@@ -161,18 +166,81 @@ export default class LibraryComponent extends Component {
     })
   }
 
-  find (trackIndex) {
-    return this.state.tracks[trackIndex]
-  }
-
   handleNext () {
     var newTrackIndex = this.state.player.trackIndex + 1;
     let newTrack = this.find(newTrackIndex);
     this.handleSelectTrack(newTrack, newTrackIndex)
   }
 
+  handleRestartAndPrev () {
+
+    // var holdPrev = false;
+    // var holdTimeoutPromise = null;
+
+    // var firePreviousHoldTime = function() {
+    //   holdTimeoutPromise = $timeout(function() {
+    //     //console.log("Now, we won't go back.")
+    //     holdPrev = false;
+    //   }, 2000)
+    // }
+
+    // if(holdPrev) {
+    //     // Next btn press received before HoldPrev Timer, proceed to set previous song
+    //     $timeout.cancel(holdTimeoutPromise)
+    //     holdPrev = false;
+    //     setPrevious()
+
+    //   } else {
+    //     // Fire off HoldPrev Timer
+    //     holdPrev = true;
+    //     firePreviousHoldTime();
+
+    //     // Restart Song
+    //     playerCtrl.restart();
+    //   }
+
+    //   function setPrevious () {
+    //     var newSongIndex = $scope.player.nowPlaying.index - 1;
+    //     if(newSongIndex >= 0) {
+    //       $scope.player.nowPlaying = find(newSongIndex);
+
+    //       media.getSongStream($scope.player.nowPlaying._id)
+    //         .then(function(result) {
+    //           playerCtrl.initAndPlay(result.data, onEnd)
+    //         })
+    //     }
+    //   }
+  }
+
+  /*
+   * getTimes
+   * 
+   * When initialized, it continuously updates the progress
+   * bar for every song.
+   */
+
+  getTimes () {
+    var times = this.playerController.getTimes();
+
+    this.setState({ 
+      player: { 
+        ...this.state.player,
+        currentTime: times.current,
+        duration: times.duration
+      }
+    })
+
+    setTimeout(() => {
+      this.getTimes();
+    }, 1000)
+  }
+
+  find (trackIndex) {
+    return this.state.tracks[trackIndex]
+  }
+
   onTrackEnd () {
-    // this.nextSong();
+    this.handleNext();
   }
 
   render() {
@@ -181,11 +249,13 @@ export default class LibraryComponent extends Component {
         <Navigation
           handlePause={this.handlePause.bind(this)}
           handleResume={this.handleResume.bind(this)}
-          handleRestart={this.playerController.restart.bind(this)}    
+          handleRestart={this.handleRestartAndPrev.bind(this)}    
           handleNext={this.handleNext.bind(this)} 
           isPlaying={this.state.player.isPlaying}
           currentTrack={this.state.player.track}
           currentArtwork={this.state.player.track ? this.state.artists[this.state.player.track.artist][this.state.player.track.album].albumArtwork : null }
+          currentTime={this.state.player.currentTime}
+          duration={this.state.player.duration}
         />
         <Tracks 
           tracks={this.state.tracks} 

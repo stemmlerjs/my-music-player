@@ -5,7 +5,7 @@ import {
 } from 'react-router-dom'
 
 import { container, trackContainer, tracksContainer, tkImg, tkImgAlt, tkDetailsContainer, tkArtistName, tkAlbumName, tkTrackName,
-total } from './TracksStyles.css'
+total, tracksHeader, tracksHeaderItem } from './TracksStyles.css'
 
 const Track = ({track, trackIndex, artwork, handleSelectTrack }) => (
   <div onClick={() => handleSelectTrack(track, trackIndex)} className={trackContainer}>
@@ -24,6 +24,11 @@ const Track = ({track, trackIndex, artwork, handleSelectTrack }) => (
 
 const Tracks = ({ tracks, artists, handleSelectTrack }) => (
   <div className={container}>
+    <div className={tracksHeader}>
+      <div className={tracksHeaderItem}>Title</div>
+      <div className={tracksHeaderItem}>Artist</div>
+      <div className={tracksHeaderItem}>Album</div>
+    </div>
     <div className={tracksContainer}>
       {
         tracks.map((track, index) => (

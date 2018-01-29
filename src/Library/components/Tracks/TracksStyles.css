@@ -4,7 +4,6 @@
 }
 
 .tracksContainer {
-    margin-top: 35px;
     /* position: fixed; */
     /* bottom: 0px; */
     /* width: 100%; */
@@ -89,4 +88,19 @@ width: 30%;
 
 .tkArtistName {
 width: 30%;
+}
+
+.tracksHeader {
+    display: flex;
+    margin-left: 59px;
+    margin-right: 32px;
+    justify-content: space-evenly;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 35px;
+    margin-bottom: 7px;
+}
+
+.tracksHeaderItem {
+        width: 30%;
 }

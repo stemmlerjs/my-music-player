@@ -37,6 +37,23 @@ class PlayerController {
     this.currentTrack = track;
   }
 
+  getTimes () {
+
+    if (this.sourceBuffer.buffer) {
+      return {
+        current: this.audioCtx.currentTime,
+        duration: this.sourceBuffer.buffer.duration
+      }
+    }
+    else {
+      return {
+        current: null,
+        duration: null
+      }
+    }
+    
+  }
+
   /*
    * initAndPlay
    * 
@@ -85,6 +102,9 @@ class PlayerController {
 
     // When the song is finished, we want to queue up the next song.
     this.sourceBuffer.onended = onEnd;
+
+    console.log(this.audioCtx, "audio context")
+    console.log(this.sourceBuffer, "buffer")
   }
 
   /*
