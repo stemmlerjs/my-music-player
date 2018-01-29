@@ -4,15 +4,43 @@ import {
   Link
 } from 'react-router-dom'
 
-import { container } from './TracksStyles.css'
+import { container, trackContainer, tracksContainer, tkImg, tkImgAlt, tkDetailsContainer, tkArtistName, tkAlbumName, tkTrackName,
+total } from './TracksStyles.css'
 
-const Track = () => (
-  <div>hello</div>
+const Track = ({track, trackIndex, artwork, handleSelectTrack }) => (
+  <div onClick={() => handleSelectTrack(track, trackIndex)} className={trackContainer}>
+    {
+      artwork
+        ? <img className={tkImg} src={artwork}/>
+        : <div className={tkImgAlt}></div>
+    }
+    <div className={tkDetailsContainer}>
+      <div className={tkTrackName}>{track.title}</div>
+      <div className={tkArtistName}>{track.artist}</div>
+      <div className={tkAlbumName}>{track.album}</div>
+    </div>
+  </div>
 )
 
-const Tracks = ({ }) => (
+const Tracks = ({ tracks, artists, handleSelectTrack }) => (
   <div className={container}>
-    tracks
+    <div className={tracksContainer}>
+      {
+        tracks.map((track, index) => (
+          <Track 
+            handleSelectTrack={handleSelectTrack}
+            key={index} 
+            track={track} 
+            trackIndex={index}
+            artwork={artists[track.artist] 
+              ? artists[track.artist][track.album]
+                ? artists[track.artist][track.album].albumArtwork 
+                : ''
+              : ''} />
+        ))
+      }
+    </div>
+    <div className={total}>{tracks.length} songs total</div>
   </div>
 )
 

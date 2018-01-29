@@ -29,8 +29,10 @@
     "webpack-dev-server": "^2.4.1"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "babel-preset-env": "^1.6.1",
     "css-loader": "^0.28.9",
+    "music-md": "^1.0.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2",

@@ -5,6 +5,14 @@ module.exports = {
     'react-hot-loader/patch',
     './src/index.js'
   ],
+  externals: {
+    config: JSON.stringify(require('./config.json'))
+  },
+  node: {
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty'
+  },
   module: {
     rules: [
       {
@@ -20,7 +28,7 @@ module.exports = {
         ]
       },
       {
-        test: /\.(png|jpg|PNG)$/, 
+        test: /\.(png|jpg|PNG|svg)$/, 
         loaders: ['url-loader?limit=8192']
       }
     ]

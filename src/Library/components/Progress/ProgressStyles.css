@@ -6,11 +6,11 @@ display: flex;
 
 .progressElapsed {
     background: darkgrey;
-    height: 10px;
+    height: 6px;
 }
 
 .progressLeft {
     background: white;
-    height: 8px;
-    border: solid 1px darkgrey;
+    height: 4px;
+    border: solid 1px #e3e3e3;
 }

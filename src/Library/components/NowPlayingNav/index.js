@@ -8,27 +8,44 @@ import {
 import Progress from '../Progress'
 
 import { container, topSectionContainer, npImg, npDetailsContainer, npTitle, npArtist, npAlbum, npControllerContainer,
-controlButtons } from './NowPlayingNavStyles.css'
+controlButtons, controlButton, npImgContainer, npImgAlt } from './NowPlayingNavStyles.css'
 
-const NowPlayingNav = ({}) => (
-  <div className={container}>
-    <div className={topSectionContainer}>
-      <img className={npImg} src='https://upload.wikimedia.org/wikipedia/en/b/b2/Sonic_Youth_Goo.jpg'/>
-      <div className={npDetailsContainer}>
-        <div className={npTitle}>Dirty Boots</div>
-        <div className={npArtist}>Sonic Youth</div>
-        <div className={npAlbum}>Goo</div>
+const NowPlayingNav = ({ handlePause, handleResume, handleRestart, handleNext, isPlaying, currentTrack, currentArtwork }) => {
+  console.log(currentArtwork, "current artwork")
+  return (
+    <div className={container}>
+      <div className={topSectionContainer}>
+
+      <div className={npImgContainer}>
+        {
+          currentArtwork
+            ? <img className={npImg} src={currentArtwork}/>
+            : <div className={npImgAlt}></div>
+        }
       </div>
-      <div className={npControllerContainer}>
-        <div className={controlButtons}>
-          <img style={{height: '20px'}} src={require('./back.PNG')}/>
-          <img style={{height: '20px'}} src={require('./play.PNG')}/>
-          <img style={{height: '18px', position:'relative', 'top': '2px'}} src={require('./forward.PNG')}/>
+
+        <div className={npDetailsContainer}>
+          <div className={npTitle}>{currentTrack ? currentTrack.title : "Nothing playing yet"}</div>
+          <div className={npArtist}>{currentTrack ? currentTrack.artist : '' }</div>
+          <div className={npAlbum}>{currentTrack ? currentTrack.album : '' }</div>
+        </div>
+        <div className={npControllerContainer}>
+          <div className={controlButtons}>
+            <img onClick={handleRestart} className={controlButton} src={require('./assets/previous-track.svg')}/>
+
+            {
+              isPlaying
+                ? <img onClick={handlePause} className={controlButton} src={require('./assets/pause-button.svg')}/>
+                : <img onClick={handleResume} className={controlButton} src={require('./assets/play-arrow.svg')}/>
+            }
+            
+            <img onClick={handleNext} className={controlButton} src={require('./assets/play-next-button.svg')}/>
+          </div>
         </div>
       </div>
+      <Progress percent={0.3}/>
     </div>
-    <Progress percent={0.3}/>
-  </div>
-)
+  )
+}
 
 export default NowPlayingNav;

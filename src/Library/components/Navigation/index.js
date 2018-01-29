@@ -8,7 +8,7 @@ import NowPlayingNav from '../NowPlayingNav'
 
 import { container, navItemsContainer } from './NavigationStyles.css'
 
-const Navigation = ({ }) => (
+const Navigation = ({ handlePause, handleResume, handleRestart, handleNext, isPlaying, currentTrack, currentArtwork }) => (
   <div className={container}>
     <ul className={navItemsContainer}>
       <Link to={`/songs`}>
@@ -21,7 +21,15 @@ const Navigation = ({ }) => (
         Playlists
       </Link>
     </ul>
-    <NowPlayingNav/>
+    <NowPlayingNav 
+      handlePause={handlePause} 
+      handleResume={handleResume} 
+      handleRestart={handleRestart}
+      handleNext={handleNext} 
+      isPlaying={isPlaying}
+      currentTrack={currentTrack}
+      currentArtwork={currentArtwork}
+    />
   </div>
 )
 
