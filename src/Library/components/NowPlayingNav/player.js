@@ -21,11 +21,11 @@ class PlayerController {
     this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
     // SourceBuffer is used as the input stream to pipe data into the audio context.
-    this.sourceBuffer = null;
+    this.sourceBuffer = [];
 
     // Global buffer is used to keep the initial un-emptied sound source when it loads in
     // full so that we can restart the song.
-    this.globalBuffer = null;
+    this.globalBuffer = [];
 
   }
 
@@ -62,11 +62,23 @@ class PlayerController {
    * Calling React component should invoke a state change to indicate that a
    * track is playing.
    * 
-   * @param {AudioBuffer} - audio stream.
+   * @param {ObservableMediaSource} - request object for the media source.
    * @param {Function} - callback for what to do when the track completes.
    */
 
-  initAndPlay (stream, onEnd) {
+  initAndPlay (observableMediaSourceInstance, onEnd) {
+
+    var _this = this;
+
+    /*
+     * As we 
+     */
+
+    observableMediaSourceInstance.on('data', (data) => {
+
+      _this.sourceBuffer.push(data)
+      console.log(_this.sourceBuffer.length)
+    })
     
     /*
      * If we're in the middle of listening to something, we need to

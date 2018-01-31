@@ -2,6 +2,7 @@
 import config from 'config'
 import axios from 'axios'
 import musicMd from 'music-md'
+import ObservableMediaSource from './ObservableMediaSource'
 
 class TrackLoader {
   constructor () {
@@ -13,9 +14,7 @@ class TrackLoader {
   }
 
   getSongStream (id) {
-    return axios.get(this.baseUrl + '/stream/' + id, {
-      responseType: "arraybuffer"
-    })
+    return new ObservableMediaSource(this.baseUrl + '/stream/' + id);
   }
 
   getSongInfo (id) {

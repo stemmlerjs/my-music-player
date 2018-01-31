@@ -114,22 +114,20 @@ export default class LibraryComponent extends Component {
     // Set current track
     this.playerController.setCurrentTrack(track);
 
-    // Get stream [TODO: allow chunked data]
-    this.trackLoader.getSongStream(track._id)
-      .then((result) => {
-        this.playerController.initAndPlay(result.data, this.onTrackEnd)
-        
-        /*
-         * Set state to reflect the current song and the state of
-         * the player has changed in order to
-         * trigger a render of components.
-         */
+    // Get audio source
+    var observableMediaSourceInstance = this.trackLoader.getSongStream(track._id)
 
-        this.setState({ player: { isPlaying: true, track: track, trackIndex: trackIndex }})
+    this.playerController.initAndPlay(observableMediaSourceInstance, this.onTrackEnd)
+    
+    /*
+      * Set state to reflect the current song and the state of
+      * the player has changed in order to
+      * trigger a render of components.
+      */
 
-        this.getTimes();
+    this.setState({ player: { isPlaying: true, track: track, trackIndex: trackIndex }})
 
-      })
+    this.getTimes();
   }
   
   handlePause () {
